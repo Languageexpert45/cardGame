@@ -70,3 +70,11 @@ font-family: 'Indie Flower', cursive;
 .main__difficulty_select-title {
     font-size: medium;
 }
+.game__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.game__info_title {
+    font-family: 'Roboto', sans-serif;
+}
