@@ -1,0 +1,72 @@
+/* @font-face {
+    font-family: StratosSkyeng;
+    src: url(https://drive.google.com/file/d/1G9XqIAZwWsxB0cHPr2ZYuJYWWp9b-nm0/view?usp=sharing)
+} */
+
+* { 
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Indie Flower', cursive;
+}
+
+.main {
+    background-color: rgb(73, 22, 121);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+} 
+.main__difficulty {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(124, 185, 182);
+    border-radius: 6px;
+    height: 250px;
+    width: 250px;
+    justify-content: center;
+    align-items: center;
+}
+.main__difficulty_box {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+.main__difficulty_button {
+    width: 150px;
+    height: 30px;
+    margin-top: 20px;
+    border-radius: 6px;
+    background-color: rgb(82, 224, 91);
+    border: none;
+    transition: 0.3s;
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;
+    font-weight: 600;
+    cursor: pointer;
+}
+.main__difficulty_button:hover {
+    background-color: rgb(29, 193, 40);
+    transform: scale(1.03);
+}
+
+.main__difficulty_select {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(233, 241, 186);
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.main__difficulty_select:hover {
+    background-color: rgb(218, 238, 105);
+    transform: scale(1.03);
+
+}
+.main__difficulty_select-title {
+    font-size: medium;
+}
