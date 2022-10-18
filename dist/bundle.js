@@ -1,15 +1,17 @@
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!*********************!*\
+  !*** ./src/main.js ***!
+  \*********************/
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-undef */
 window.application = {
     blocks: {},
     screens: {renderDifficultyScreen,},
     difficultyLevel: {},
-    cardsTotal:[],
-    cardsOpened:[],
     cardsToCompare: [],
     cardsLength: [],
-    cardHideTimer: [],
-    gameTimer: [],
+    timers: []
 }
 
 
@@ -29,24 +31,18 @@ function renderDifficultyScreen() {
     })
     button.addEventListener('click', () => {
         if (window.application.difficultyLevel === 'easy') {
-            renderGame(3, 2)
+            renderGame(6)
         }
         if (window.application.difficultyLevel === 'normal') {
-            renderGame(6, 4)
+            renderGame(12)
         }
         if (window.application.difficultyLevel === 'hard') {
-            renderGame(9, 6)
+            renderGame(18)
         }
     })
 };
 
-function renderGame(difficulty, time) {
-    window.application.gameTimer.forEach(item => {
-        clearInterval(item);
-    });
-    window.application.gameTimer = [];
-    window.application.cardsTotal = [];
-    
+function renderGame(difficulty) {
     const cards = ['6 бубны.png','6 крести.png', '6 пики.png', '6 черви.png', '7 бубны.png', '7 крести.png', '7 пики.png', '7 черви.png', '8 бубны.png','8 крести.png', '8 пики.png', '8 черви.png', '9 бубны.png','9 крести.png', '9 пики.png', '9 черви.png', '10 бубны.png','10 крести.png', '10 пики.png', '10 черви.png', 'валет бубны.png','валет крести.png', 'валет пики.png', 'валет черви.png', 'дама бубны.png','дама крести.png', 'дама пики.png', 'дама черви.png', 'король бубны.png','король крести.png', 'король пики.png', 'король черви.png', 'туз бубны.png','туз крести.png', 'туз пики.png', 'туз черви.png'];
     container.innerHTML = '';
     container.appendChild(templateEngine(topBox));
@@ -57,23 +53,10 @@ function renderGame(difficulty, time) {
 
     shuffle(generatedCards); 
     
-    renderCards(generatedCards); 
-    
-    restartCurrentGame (difficulty, time);
-
-    timeCount (time);
+    renderCards(generatedCards);      
 };
 
-function restartCurrentGame (difficulty, time) {
-    const restartButton = document.querySelector('.restart_button');
-    restartButton.addEventListener('click', () => {
-        renderGame(difficulty, time);  
-    })
-}
-
 function renderCards(array) {
-    window.application.cardsTotal = array;
-    window.application.cardsOpened = [];
     for (let i = 0; i < array.length; i++) {
         const card = document.createElement('img'); 
         card.classList.add('game__card');  
@@ -85,8 +68,7 @@ function renderCards(array) {
 
         hideCards(card, cardCover);
         
-        openCards(cardCover, card, array[i]);
-        
+        openCards(cardCover, card, array[i]);        
     };
 }
 
@@ -94,8 +76,8 @@ function hideCards(card, cardCover) {
     let hideCards = setInterval(() => { 
         card.classList.add('game__card_hidden');
         cardCover.classList.remove('game__card-cover_hidden');
-        window.application.cardHideTimer.push(hideCards);
-        window.application.cardHideTimer.forEach(item => {
+        window.application.timers.push(hideCards);
+        window.application.timers.forEach(item => {
             clearInterval(item);
         });
     }, 5000);
@@ -119,17 +101,9 @@ function compareCards() {
     let card2 = window.application.cardsToCompare[1];
     if (card1 === card2) {
         console.log('success!');
-        playerWin(window.application.cardsToCompare);
         window.application.cardsToCompare = [];
-        
     } else {
         window.application.cardsToCompare = [];
-        window.application.difficultyLevel = {};
-        window.application.gameTimer.forEach(item => {
-            clearInterval(item);
-        });
-        window.application.gameTimer = [];
-
         console.log('nope!');
         Swal.fire({
             title: 'Oops!',
@@ -141,46 +115,6 @@ function compareCards() {
     };  
 }
 
-function playerWin (cardsOpened) {
-    window.application.cardsOpened.push(cardsOpened);
-    let array2 = window.application.cardsTotal;
-    let array1 = window.application.cardsOpened.flat();
-    if (array1.length === array2.length) {
-        Swal.fire({
-            title: 'Congratulations!',
-            text: 'You won!',
-            icon: 'success',
-            confirmButtonText: 'Ok'
-        });
-        renderDifficultyScreen();
-    }
-}
-
-function timeCount (time) {
-    const timeBox = document.querySelector('.game__top-box_timer');
-    timeMinut = parseInt(time) * 60;
-
-    let timer = setInterval(function () {
-        seconds = timeMinut%60;
-        minutes = timeMinut/60%60;
-        let strTimer = `${Math.trunc(minutes)}:${seconds}`;
-        timeBox.innerHTML = strTimer;
-
-        --timeMinut;
-        window.application.gameTimer.push(timer);
-        
-        if (timeMinut <= 0) {
-            clearInterval(timer);
-            Swal.fire({
-                title: 'Sorry!',
-                text: 'The time is over',
-                icon: 'error',
-                confirmButtonText: 'Ok'
-            });
-            renderDifficultyScreen();
-        } 
-    }, 1000)
-}
 
 
 
@@ -188,5 +122,6 @@ function timeCount (time) {
 
 
 
-
-
+/******/ })()
+;
+//# sourceMappingURL=bundle.js.map

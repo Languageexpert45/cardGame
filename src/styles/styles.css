@@ -124,11 +124,21 @@
   cursor: pointer;
 }
 
+.game__card_hidden {
+  display: none;
+}
+.game__card-cover_hidden {
+  display: none;
+}
+
 .game__card-cover {
   width: 95px;
   height: 133px;
   background-image: url(../img/рубашка.png);
   background-size: cover;
   background-repeat: no-repeat;
-  
+  transition: 0.3s;
+}
+.game__card-cover:hover {
+  transform: scale(1.03);
 }
