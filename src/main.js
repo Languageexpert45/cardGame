@@ -1,8 +1,22 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-undef */
+
+import {templateEngine} from './js/templateEngine';
+
+import {difficultyScreen} from './js/screenPatterns';
+
+import {topBox} from './js/screenPatterns';
+
+import './styles/styles.css';
+
+import Swal from '../node_modules/sweetalert2/dist/sweetalert2.min.js';
+
+import '../node_modules/sweetalert2/dist/sweetalert2.css';
+
+
 window.application = {
     blocks: {},
-    screens: {renderDifficultyScreen,},
+    screens: {renderDifficultyScreen},
     difficultyLevel: {},
     cardsTotal:[],
     cardsOpened:[],
@@ -46,6 +60,7 @@ function renderGame(difficulty, time) {
     });
     window.application.gameTimer = [];
     window.application.cardsTotal = [];
+    window.application.difficultyLevel = {};
     
     const cards = ['6 бубны.png','6 крести.png', '6 пики.png', '6 черви.png', '7 бубны.png', '7 крести.png', '7 пики.png', '7 черви.png', '8 бубны.png','8 крести.png', '8 пики.png', '8 черви.png', '9 бубны.png','9 крести.png', '9 пики.png', '9 черви.png', '10 бубны.png','10 крести.png', '10 пики.png', '10 черви.png', 'валет бубны.png','валет крести.png', 'валет пики.png', 'валет черви.png', 'дама бубны.png','дама крести.png', 'дама пики.png', 'дама черви.png', 'король бубны.png','король крести.png', 'король пики.png', 'король черви.png', 'туз бубны.png','туз крести.png', 'туз пики.png', 'туз черви.png'];
     container.innerHTML = '';
@@ -77,7 +92,7 @@ function renderCards(array) {
     for (let i = 0; i < array.length; i++) {
         const card = document.createElement('img'); 
         card.classList.add('game__card');  
-        card.src = 'img/' + array[i];
+        card.src = 'static/' + array[i];
         container.appendChild(card);
         const cardCover =  document.createElement('img');
         cardCover.classList.add('game__card-cover', 'game__card-cover_hidden');
@@ -118,7 +133,6 @@ function compareCards() {
     let card1 = window.application.cardsToCompare[0];
     let card2 = window.application.cardsToCompare[1];
     if (card1 === card2) {
-        console.log('success!');
         playerWin(window.application.cardsToCompare);
         window.application.cardsToCompare = [];
         
@@ -130,7 +144,6 @@ function compareCards() {
         });
         window.application.gameTimer = [];
 
-        console.log('nope!');
         Swal.fire({
             title: 'Oops!',
             text: 'Try again!',
@@ -158,11 +171,12 @@ function playerWin (cardsOpened) {
 
 function timeCount (time) {
     const timeBox = document.querySelector('.game__top-box_timer');
-    timeMinut = parseInt(time) * 60;
+    timeBox.textContent = `${time}:00`;
+    let timeMinut = parseInt(time) * 60;
 
     let timer = setInterval(function () {
-        seconds = timeMinut%60;
-        minutes = timeMinut/60%60;
+        let seconds = timeMinut%60;
+        let minutes = timeMinut/60%60;
         let strTimer = `${Math.trunc(minutes)}:${seconds}`;
         timeBox.innerHTML = strTimer;
 

@@ -18,7 +18,16 @@ module.exports = {
  mode,
  module: {
   rules: [
-   { test: /\.css$/, use: [MiniCssExtractPlugin.loader, "css-loader"] },
+   {
+    test: /\\.ts$/,
+    use: "ts-loader",
+    exclude: /node_modules/,
+   },
+
+   {
+    test: /\.css$/,
+    use: [MiniCssExtractPlugin.loader, "css-loader"],
+   },
    {
     test: /\.(png|svg|jpg|jpeg|gif)$/i,
     type: "asset/resource",
@@ -33,6 +42,9 @@ module.exports = {
   minimizer: ["...", new CssMinimizerPlugin()],
  },
  devtool: process.env.NODE_ENV === "production" ? false : "source-map",
+ resolve: {
+  extensions: [".ts", ".js"],
+ },
 
  plugins: [
   new CopyPlugin({
