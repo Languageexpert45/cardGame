@@ -1,6 +1,6 @@
 /* eslint-disable no-dupe-keys */
 /* eslint-disable no-unused-vars */
-const difficultyScreen = {
+export const difficultyScreen = {
     
     tag: "div",
     cls: "difficulty",
@@ -52,7 +52,7 @@ const difficultyScreen = {
     ],
 }   
 
-const topBox = {
+export const topBox = {
     tag: 'div',
     cls: 'game__top-box',
     content: [
