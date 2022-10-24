@@ -1,5 +1,4 @@
-/* eslint-disable no-dupe-keys */
-/* eslint-disable no-unused-vars */
+
 export const difficultyScreen = {
     
     tag: "div",
