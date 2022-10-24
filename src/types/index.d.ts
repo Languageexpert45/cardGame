@@ -2,19 +2,18 @@ export {};
 
 declare global {
   interface Window {
-    application: Application;
+    application: App;
   }
 }
 
-type Application = {
+type App = {
     screens: Object,
-    difficultyLevel: any,
+    difficultyLevel: string,
     cardsTotal: Array<string>,
-    cardsOpened: Array<any>,
-    cardsToCompare: Array<any>,
+    cardsOpened: Array<EventTarget>,
+    cardsToCompare: any,
     cardsLength: Array<string>,
     cardHideTimer: Array<NodeJS.Timer>,
     gameTimer: Array<NodeJS.Timer>,
 }
-
 

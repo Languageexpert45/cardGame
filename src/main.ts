@@ -1,6 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-undef */
-
 import {templateEngine} from './js/templateEngine';
 
 import {difficultyScreen} from './js/screenPatterns';
@@ -14,9 +11,10 @@ import Swal from 'sweetalert2';
 import '../node_modules/sweetalert2/dist/sweetalert2.css';
 
 
+
 window.application = {
     screens: {renderDifficultyScreen},
-    difficultyLevel: {},
+    difficultyLevel: '',
     cardsTotal:[],
     cardsOpened:[],
     cardsToCompare: [],
@@ -26,9 +24,9 @@ window.application = {
 }
 
 
-function shuffle(array: Array<string>) {
+function shuffle(array: string[]) {
     array.sort(() => Math.random() - 0.5);
-};
+}
 
 function renderDifficultyScreen() {
     const container = document.querySelector('.container');
@@ -37,7 +35,7 @@ function renderDifficultyScreen() {
     const difficultySelectBox = document.querySelector('.difficulty_box');
     const button = document.querySelector('.difficulty_button');
     difficultySelectBox.addEventListener('click', (event) => {
-        const target = event.target;
+        const target = event.target as HTMLElement;
         window.application.difficultyLevel = target.textContent;
         button.textContent = window.application.difficultyLevel;
     })
@@ -52,7 +50,7 @@ function renderDifficultyScreen() {
             renderGame(9, 6)
         }
     })
-};
+}
 
 function renderGame(difficulty: number, time: number) {
     const container = document.querySelector('.container');
@@ -61,7 +59,7 @@ function renderGame(difficulty: number, time: number) {
     });
     window.application.gameTimer = [];
     window.application.cardsTotal = [];
-    window.application.difficultyLevel = {};
+    window.application.difficultyLevel = '';
     
     const cards = ['1_clover.png', '6_clover.png', '7_clover.png', '8_clover.png', '9_clover.png', '10_clover.png', 'J_clover.png', 'Q_clover.png', 'K_clover.png', '1_diamond.png', '6_diamond.png', '7_diamond.png', '8_diamond.png', '9_diamond.png', '10_diamond.png', 'J_diamond.png', 'Q_diamond.png', 'K_diamond.png', '1_hearts.png', '6_hearts.png', '7_hearts.png', '8_hearts.png', '9_hearts.png', '10_hearts.png', 'J_hearts.png', 'Q_hearts.png', 'K_hearts.png', '1_spade.png', '6_spade.png', '7_spade.png', '8_spade.png', '9_spade.png', '10_spade.png', 'J_spade.png', 'Q_spade.png', 'K_spade.png'];
 
@@ -79,7 +77,7 @@ function renderGame(difficulty: number, time: number) {
     restartCurrentGame (difficulty, time);
 
     timeCount (time);
-};
+}
 
 function restartCurrentGame (difficulty: number, time: number) {
     const restartButton = document.querySelector('.restart_button');
@@ -88,7 +86,7 @@ function restartCurrentGame (difficulty: number, time: number) {
     })
 }
 
-function renderCards(array: Array<string>) {
+function renderCards(array:string[]) {
     const container = document.querySelector('.container');
     window.application.cardsTotal = array;
     window.application.cardsOpened = [];
@@ -105,10 +103,10 @@ function renderCards(array: Array<string>) {
         
         openCards(cardCover, card, array[i]);
         
-    };
+    }
 }
 
-function hideCards(card: HTMLImageElement, cardCover: HTMLImageElement) {
+function hideCards(card: HTMLImageElement, cardCover:HTMLImageElement) {
     let hideCards = setInterval(() => { 
         card.classList.add('game__card_hidden');
         cardCover.classList.remove('game__card-cover_hidden');
@@ -119,9 +117,9 @@ function hideCards(card: HTMLImageElement, cardCover: HTMLImageElement) {
     }, 5000);
 }
 
-function openCards(cardCover: HTMLImageElement, card: HTMLImageElement, arrayCard: any) {
+function openCards(cardCover:HTMLImageElement, card:HTMLImageElement, arrayCard:any) {
     cardCover.addEventListener('click', (event) => {
-        let target = event.target
+        let target = event.target;
         target = arrayCard;
         card.classList.remove('game__card_hidden');
         cardCover.classList.add('game__card-cover_hidden');
@@ -141,7 +139,7 @@ function compareCards() {
         
     } else {
         window.application.cardsToCompare = [];
-        window.application.difficultyLevel = {};
+        window.application.difficultyLevel = '';
         window.application.gameTimer.forEach(item => {
             clearInterval(item);
         });
@@ -154,10 +152,10 @@ function compareCards() {
             confirmButtonText: 'Ok'
           })
         renderDifficultyScreen();
-    };  
+    }
 }
 
-function playerWin (cardsOpened: Array<any>) {
+function playerWin (cardsOpened: EventTarget) {
     window.application.cardsOpened.push(cardsOpened);
     let array2 = window.application.cardsTotal;
     let array1 = window.application.cardsOpened.flat();
@@ -172,10 +170,10 @@ function playerWin (cardsOpened: Array<any>) {
     }
 }
 
-function timeCount (time: any) {
+function timeCount (time: number) {
     const timeBox = document.querySelector('.game__top-box_timer');
     timeBox.textContent = `${time}:00`;
-    let timeMinut = parseInt(time) * 60;
+    let timeMinut = (time) * 60;
 
     let timer = setInterval(function () {
         let seconds = timeMinut%60;
@@ -198,12 +196,3 @@ function timeCount (time: any) {
         } 
     }, 1000)
 }
-
-
-
-
-
-
-
-
-
