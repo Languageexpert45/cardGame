@@ -178,17 +178,16 @@ function compareCards() {
     window.application.difficultyLevel = '';
     let gameTime = window.application.gameTimer.length;
     Swal.fire({
-        title: 'Oops!',
-        text: `Try again! The Game has ended in ${gameTime} sec`,
-        icon: 'error',
-        confirmButtonText: 'Ok',
-      });
+      title: 'Oops!',
+      text: `Try again! The Game has ended in ${gameTime} sec`,
+      icon: 'error',
+      confirmButtonText: 'Ok',
+    });
     window.application.gameTimer.forEach((item) => {
       clearInterval(item);
     });
     window.application.gameTimer = [];
 
-    
     renderDifficultyScreen();
   }
 }
@@ -207,9 +206,9 @@ function playerWin(cardsOpened: EventTarget) {
     });
     console.log(gameTime);
     window.application.gameTimer.forEach((item) => {
-        clearInterval(item);
-      });
-      window.application.gameTimer = [];
+      clearInterval(item);
+    });
+    window.application.gameTimer = [];
     renderDifficultyScreen();
   }
 }
