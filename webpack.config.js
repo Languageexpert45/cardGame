@@ -9,7 +9,7 @@ const mode =
  process.env.NODE_ENV === "production" ? "production" : "development"
 
 module.exports = {
- entry: "./src/main.js",
+ entry: "./src/main.ts",
  output: {
   path: path.resolve(__dirname, "dist"),
   filename: "bundle.js",
@@ -19,7 +19,7 @@ module.exports = {
  module: {
   rules: [
    {
-    test: /\\.ts$/,
+    test: /\.ts$/,
     use: "ts-loader",
     exclude: /node_modules/,
    },
@@ -38,13 +38,13 @@ module.exports = {
    },
   ],
  },
+ resolve: {
+  extensions: [".ts", ".js"],
+ },
  optimization: {
   minimizer: ["...", new CssMinimizerPlugin()],
  },
  devtool: process.env.NODE_ENV === "production" ? false : "source-map",
- resolve: {
-  extensions: [".ts", ".js"],
- },
 
  plugins: [
   new CopyPlugin({

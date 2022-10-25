@@ -134,7 +134,7 @@
 .game__card-cover {
   width: 95px;
   height: 133px;
-  background-image: url(../img/рубашка.png);
+  background-image: url(../static/0_cover.png);
   background-size: cover;
   background-repeat: no-repeat;
   transition: 0.3s;

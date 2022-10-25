@@ -1,6 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-undef */
-
 import {templateEngine} from './js/templateEngine';
 
 import {difficultyScreen} from './js/screenPatterns';
@@ -9,15 +6,15 @@ import {topBox} from './js/screenPatterns';
 
 import './styles/styles.css';
 
-import Swal from '../node_modules/sweetalert2/dist/sweetalert2.min.js';
+import Swal from 'sweetalert2';
 
 import '../node_modules/sweetalert2/dist/sweetalert2.css';
 
 
+
 window.application = {
-    blocks: {},
     screens: {renderDifficultyScreen},
-    difficultyLevel: {},
+    difficultyLevel: '',
     cardsTotal:[],
     cardsOpened:[],
     cardsToCompare: [],
@@ -27,17 +24,18 @@ window.application = {
 }
 
 
-function shuffle(array) {
+function shuffle(array: string[]) {
     array.sort(() => Math.random() - 0.5);
-};
+}
 
 function renderDifficultyScreen() {
+    const container = document.querySelector('.container');
     container.innerHTML = '';
     container.appendChild(templateEngine(difficultyScreen));
     const difficultySelectBox = document.querySelector('.difficulty_box');
-    const button = document.querySelector('.difficulty_button')
+    const button = document.querySelector('.difficulty_button');
     difficultySelectBox.addEventListener('click', (event) => {
-        const target = event.target;
+        const target = event.target as HTMLElement;
         window.application.difficultyLevel = target.textContent;
         button.textContent = window.application.difficultyLevel;
     })
@@ -52,17 +50,19 @@ function renderDifficultyScreen() {
             renderGame(9, 6)
         }
     })
-};
+}
 
-function renderGame(difficulty, time) {
+function renderGame(difficulty: number, time: number) {
+    const container = document.querySelector('.container');
     window.application.gameTimer.forEach(item => {
         clearInterval(item);
     });
     window.application.gameTimer = [];
     window.application.cardsTotal = [];
-    window.application.difficultyLevel = {};
+    window.application.difficultyLevel = '';
     
-    const cards = ['6 бубны.png','6 крести.png', '6 пики.png', '6 черви.png', '7 бубны.png', '7 крести.png', '7 пики.png', '7 черви.png', '8 бубны.png','8 крести.png', '8 пики.png', '8 черви.png', '9 бубны.png','9 крести.png', '9 пики.png', '9 черви.png', '10 бубны.png','10 крести.png', '10 пики.png', '10 черви.png', 'валет бубны.png','валет крести.png', 'валет пики.png', 'валет черви.png', 'дама бубны.png','дама крести.png', 'дама пики.png', 'дама черви.png', 'король бубны.png','король крести.png', 'король пики.png', 'король черви.png', 'туз бубны.png','туз крести.png', 'туз пики.png', 'туз черви.png'];
+    const cards = ['1_clover.png', '6_clover.png', '7_clover.png', '8_clover.png', '9_clover.png', '10_clover.png', 'J_clover.png', 'Q_clover.png', 'K_clover.png', '1_diamond.png', '6_diamond.png', '7_diamond.png', '8_diamond.png', '9_diamond.png', '10_diamond.png', 'J_diamond.png', 'Q_diamond.png', 'K_diamond.png', '1_hearts.png', '6_hearts.png', '7_hearts.png', '8_hearts.png', '9_hearts.png', '10_hearts.png', 'J_hearts.png', 'Q_hearts.png', 'K_hearts.png', '1_spade.png', '6_spade.png', '7_spade.png', '8_spade.png', '9_spade.png', '10_spade.png', 'J_spade.png', 'Q_spade.png', 'K_spade.png'];
+
     container.innerHTML = '';
     container.appendChild(templateEngine(topBox));
 
@@ -77,16 +77,17 @@ function renderGame(difficulty, time) {
     restartCurrentGame (difficulty, time);
 
     timeCount (time);
-};
+}
 
-function restartCurrentGame (difficulty, time) {
+function restartCurrentGame (difficulty: number, time: number) {
     const restartButton = document.querySelector('.restart_button');
     restartButton.addEventListener('click', () => {
         renderGame(difficulty, time);  
     })
 }
 
-function renderCards(array) {
+function renderCards(array:string[]) {
+    const container = document.querySelector('.container');
     window.application.cardsTotal = array;
     window.application.cardsOpened = [];
     for (let i = 0; i < array.length; i++) {
@@ -102,10 +103,10 @@ function renderCards(array) {
         
         openCards(cardCover, card, array[i]);
         
-    };
+    }
 }
 
-function hideCards(card, cardCover) {
+function hideCards(card: HTMLImageElement, cardCover:HTMLImageElement) {
     let hideCards = setInterval(() => { 
         card.classList.add('game__card_hidden');
         cardCover.classList.remove('game__card-cover_hidden');
@@ -116,9 +117,9 @@ function hideCards(card, cardCover) {
     }, 5000);
 }
 
-function openCards(cardCover, card, arrayCard) {
+function openCards(cardCover:HTMLImageElement, card:HTMLImageElement, arrayCard:any) {
     cardCover.addEventListener('click', (event) => {
-        let target = event.target
+        let target = event.target;
         target = arrayCard;
         card.classList.remove('game__card_hidden');
         cardCover.classList.add('game__card-cover_hidden');
@@ -138,7 +139,7 @@ function compareCards() {
         
     } else {
         window.application.cardsToCompare = [];
-        window.application.difficultyLevel = {};
+        window.application.difficultyLevel = '';
         window.application.gameTimer.forEach(item => {
             clearInterval(item);
         });
@@ -151,10 +152,10 @@ function compareCards() {
             confirmButtonText: 'Ok'
           })
         renderDifficultyScreen();
-    };  
+    }
 }
 
-function playerWin (cardsOpened) {
+function playerWin (cardsOpened: EventTarget) {
     window.application.cardsOpened.push(cardsOpened);
     let array2 = window.application.cardsTotal;
     let array1 = window.application.cardsOpened.flat();
@@ -169,10 +170,10 @@ function playerWin (cardsOpened) {
     }
 }
 
-function timeCount (time) {
+function timeCount (time: number) {
     const timeBox = document.querySelector('.game__top-box_timer');
     timeBox.textContent = `${time}:00`;
-    let timeMinut = parseInt(time) * 60;
+    let timeMinut = (time) * 60;
 
     let timer = setInterval(function () {
         let seconds = timeMinut%60;
@@ -195,12 +196,3 @@ function timeCount (time) {
         } 
     }, 1000)
 }
-
-
-
-
-
-
-
-
-

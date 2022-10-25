@@ -1,6 +1,5 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-unused-vars */
-export function templateEngine(block) {
+
+export function templateEngine(block: any) {
     if (block === undefined || block === null || block === false) {
         return document.createTextNode("");
     }
