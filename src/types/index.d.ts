@@ -7,13 +7,12 @@ declare global {
 }
 
 type App = {
-    screens: Object,
-    difficultyLevel: string,
-    cardsTotal: Array<string>,
-    cardsOpened: Array<EventTarget>,
-    cardsToCompare: any,
-    cardsLength: Array<string>,
-    cardHideTimer: Array<NodeJS.Timer>,
-    gameTimer: Array<NodeJS.Timer>,
-}
-
+  screens: Object;
+  difficultyLevel: string;
+  cardsTotal: Array<string>;
+  cardsOpened: Array<EventTarget>;
+  cardsToCompare: any;
+  cardsLength: Array<string>;
+  cardHideTimer: Array<NodeJS.Timer>;
+  gameTimer: Array<NodeJS.Timer>;
+};

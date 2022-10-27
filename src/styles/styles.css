@@ -1,13 +1,8 @@
-/* stylelint-disable rule-empty-line-before */
-/* stylelint-disable function-url-quotes */
-/* stylelint-disable prettier/prettier */
-/* stylelint-disable selector-class-pattern */
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Indie Flower", cursive;
+  font-family: 'Indie Flower', cursive;
 }
 
 .container {
@@ -113,7 +108,7 @@
   font-weight: 400;
   font-size: 64px;
   line-height: 72px;
-  color: #FFF;
+  color: #fff;
 }
 
 .game__card {
